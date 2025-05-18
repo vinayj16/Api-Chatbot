@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
+const API_BASE_URL = 'https://api-chatbot-hg8g.onrender.com';
+
 function App() {
   const [prompt, setPrompt] = useState('');
   const [messages, setMessages] = useState([]);
@@ -54,10 +56,12 @@ function App() {
   const fetchChatHistory = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:3000/history/${userId}`);
+      const response = await fetch(`${API_BASE_URL}/history/${userId}`);
       if (response.ok) {
         const history = await response.json();
         setMessages(history);
+      } else {
+        console.error('Failed to fetch chat history');
       }
     } catch (error) {
       console.error('Failed to fetch chat history:', error);
@@ -88,7 +92,7 @@ function App() {
     setError(null);
     
     try {
-      const response = await fetch('http://localhost:3000/generate', {
+      const response = await fetch(`${API_BASE_URL}/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -128,7 +132,7 @@ function App() {
 
   const clearChat = async () => {
     try {
-      await fetch(`http://localhost:3000/history/${userId}`, {
+      await fetch(`${API_BASE_URL}/history/${userId}`, {
         method: 'DELETE'
       });
       setMessages([]);
@@ -246,4 +250,3 @@ function App() {
 }
 
 export default App;
-
