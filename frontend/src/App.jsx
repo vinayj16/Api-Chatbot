@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
+<<<<<<< HEAD
 const API_BASE_URL = 'https://api-chatbot-hg8g.onrender.com';
+=======
+// Use environment variable for API base URL, fallback to your deployed backend URL
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://api-chatbot-hg8g.onrender.com';
+>>>>>>> 304dc75 (Added start script for Render deployment)
 
 function App() {
   const [prompt, setPrompt] = useState('');
@@ -12,6 +17,37 @@ function App() {
   const [userId, setUserId] = useState('');
   const chatBoxRef = useRef(null);
   const inputRef = useRef(null);
+<<<<<<< HEAD
+=======
+
+  useEffect(() => {
+    let id = localStorage.getItem('userId');
+    if (!id) {
+      id = 'user_' + Math.random().toString(36).substring(2, 15);
+      localStorage.setItem('userId', id);
+    }
+    setUserId(id);
+
+    const savedTheme = localStorage.getItem('chatTheme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (userId) {
+      fetchChatHistory();
+    }
+  }, [userId]);
+
+  useEffect(() => {
+    localStorage.setItem('chatTheme', theme);
+  }, [theme]);
+>>>>>>> 304dc75 (Added start script for Render deployment)
 
   // Generate or retrieve userId on component mount
   useEffect(() => {
@@ -68,6 +104,7 @@ function App() {
     } finally {
       setIsLoading(false);
     }
+<<<<<<< HEAD
   };
 
   const handleInputChange = (e) => {
@@ -76,6 +113,17 @@ function App() {
   };
 
   const handleKeyPress = (e) => {
+=======
+  };
+
+  const handleInputChange = (e) => {
+    setPrompt(e.target.value);
+    setError(null);
+  };
+
+  // Changed from onKeyPress to onKeyDown for React best practices
+  const handleKeyDown = (e) => {
+>>>>>>> 304dc75 (Added start script for Render deployment)
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
@@ -84,39 +132,61 @@ function App() {
 
   const handleSend = async () => {
     if (!prompt.trim()) return;
-    
+
     const userMessage = { text: prompt, isUser: true };
     setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
     setPrompt('');
     setError(null);
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 304dc75 (Added start script for Render deployment)
     try {
       const response = await fetch(`${API_BASE_URL}/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+<<<<<<< HEAD
         body: JSON.stringify({ 
+=======
+        body: JSON.stringify({
+>>>>>>> 304dc75 (Added start script for Render deployment)
           prompt,
           userId
         }),
       });
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> 304dc75 (Added start script for Render deployment)
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Server error');
       }
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> 304dc75 (Added start script for Render deployment)
       const data = await response.json();
-      
+
       setMessages(prev => [...prev, { text: data.text, isUser: false }]);
     } catch (error) {
       console.error('Error:', error);
       setError(error.message);
+<<<<<<< HEAD
       setMessages(prev => [...prev, { 
         text: `Sorry, I encountered an error: ${error.message}. Please try again.`, 
         isUser: false 
+=======
+      setMessages(prev => [...prev, {
+        text: `Sorry, I encountered an error: ${error.message}. Please try again.`,
+        isUser: false
+>>>>>>> 304dc75 (Added start script for Render deployment)
       }]);
     } finally {
       setIsLoading(false);
@@ -144,7 +214,10 @@ function App() {
 
   const handleSuggestionClick = (suggestion) => {
     setPrompt(suggestion);
+<<<<<<< HEAD
     // Auto-send after a short delay
+=======
+>>>>>>> 304dc75 (Added start script for Render deployment)
     setTimeout(() => {
       handleSend();
     }, 100);
@@ -229,14 +302,14 @@ function App() {
               type="text"
               value={prompt}
               onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyDown}
               placeholder="Type your message and press Enter..."
               className="input-box"
               disabled={isLoading}
               ref={inputRef}
             />
-            <button 
-              onClick={handleSend} 
+            <button
+              onClick={handleSend}
               className="send-btn"
               disabled={isLoading || !prompt.trim()}
             >
