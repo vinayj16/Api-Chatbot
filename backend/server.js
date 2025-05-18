@@ -367,4 +367,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
->>>>>>> 304dc75 (Added start script for Render deployment)
