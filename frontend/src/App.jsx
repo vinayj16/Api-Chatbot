@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
-const API_BASE_URL = 'https://api-chatbot-hg8g.onrender.com';
+const API_BASE_URL = 'https://api-chatbot-45vp.onrender.com';
 
 function App() {
   const [prompt, setPrompt] = useState('');
