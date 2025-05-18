@@ -4,16 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-<<<<<<< HEAD
-      "start": "serve -s dist"
-=======
+"dev": "vite",
+  "build": "vite build",
   "start": "serve -s dist"
->>>>>>> 304dc75 (Added start script for Render deployment)
-
   },
   "dependencies": {
     "react": "^18.3.1",
