@@ -32,6 +32,10 @@ const Chat = mongoose.model('Chat', chatSchema);
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 console.log('Gemini API client initialized');
 
+app.get('/', (req, res) => {
+  res.send('API Chatbot Backend is running!');
+});
+
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
